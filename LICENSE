@@ -1,0 +1,56 @@
+MIT License
+
+Copyright (c) 2026 Icona
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+**ADDITIONAL ATTRIBUTION REQUIREMENT:**
+If you use this software for production purposes or replicate this project,
+you MUST provide full credits to the original developers and designers of the
+icons included in this library. This includes but is not limited to:
+
+- Tabler Icons (https://tabler-icons.io/) - providing beautiful outline icons
+- Feather Icons (https://feathericons.com/) - providing simple and beautiful icons
+- Figma Community Icons - when using icons sourced from Figma, provide credits to the original Figma creators/designers
+- Any other icon libraries or individual icon designers whose work is included
+
+When using icons in production applications, appropriate attribution should be
+provided in one of the following ways:
+1. In your application's credits/about section
+2. In your project's README or documentation
+3. In the footer or licensing section of your application
+4. In any other prominent and accessible location
+
+For Figma-sourced icons, include the creator's name and Figma profile link when possible.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Icon Attribution
+
+This project may include icons from various sources. Please ensure you comply
+with the individual licenses of the icon libraries you use:
+
+- **Tabler Icons**: MIT License - https://github.com/tabler/tabler-icons
+- **Feather Icons**: MIT License - https://github.com/feathericons/feather
+- **Figma Community Icons**: Various licenses - Please check individual creator's terms and provide proper attribution to the original Figma designers
+- **Other Icons**: Please check individual icon library licenses
+
+By using this software, you agree to respect and acknowledge the work of all
+icon designers, including Figma community creators, and maintain proper attribution 
+as required by their respective licenses and terms of use.
