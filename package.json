@@ -1,6 +1,6 @@
 {
   "name": "@developershre/icona",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "description": "A TypeScript icon library generator for React, React Native, and Vue with nested folder support",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
