@@ -1,7 +1,7 @@
 {
-  "name": "icona",
+  "name": "@developershre/icona",
   "version": "1.0.0",
-  "description": "All in one icon Library from figma to development",
+  "description": "A TypeScript icon library generator for React, React Native, and Vue with nested folder support",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -19,10 +19,12 @@
     "prepublishOnly": "npm run clean && npm run build && npm run generate",
     "generate": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "publish:local": "node -r dotenv/config -e \"require('child_process').execSync('npm config set //registry.npmjs.org/:_authToken ' + process.env.NPM_TOKEN, {stdio: 'inherit'}); require('child_process').execSync('npm publish', {stdio: 'inherit'})\"",
-    "release:patch": "npm version patch && npm run clean && npm run build && npm run generate && npm run publish:local",
-    "release:minor": "npm version minor && npm run clean && npm run build && npm run generate && npm run publish:local",
-    "release:major": "npm version major && npm run clean && npm run build && npm run generate && npm run publish:local"
+    "publish:patch": "npm version patch && npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN && npm publish --access public && git push origin main --tags",
+    "publish:minor": "npm version minor && npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN && npm publish --access public && git push origin main --tags",
+    "publish:major": "npm version major && npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN && npm publish --access public && git push origin main --tags",
+    "release:patch": "npm run clean && npm run build && npm run generate && npm run publish:patch",
+    "release:minor": "npm run clean && npm run build && npm run generate && npm run publish:minor",
+    "release:major": "npm run clean && npm run build && npm run generate && npm run publish:major"
   },
   "files": [
     "dist/",
@@ -45,7 +47,7 @@
     "feather"
   ],
   "author": {
-    "name": "develop-programs",
+    "name": "developershre",
     "url": "https://github.com/develop-programs"
   },
   "license": "MIT",
@@ -56,7 +58,6 @@
   "devDependencies": {
     "@types/node": "^25.2.2",
     "@types/react": "^19.2.13",
-    "typescript": "^5.9.3",
-    "dotenv": "^16.3.1"
+    "typescript": "^5.9.3"
   }
 }
