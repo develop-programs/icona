@@ -34,6 +34,7 @@ jobs:
       with:
         node-version: '18'
         registry-url: 'https://registry.npmjs.org'
+        always-auth: true
 
     - name: Cache dependencies
       uses: actions/cache@v3
@@ -104,6 +105,30 @@ jobs:
         npm run build
         npm run generate
 
+    - name: Configure NPM Authentication
+      run: |
+        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+        npm whoami
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    - name: Verify NPM Authentication
+      run: |
+        echo "Verifying npm authentication..."
+        npm whoami
+        echo "Authentication successful!"
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    - name: Verify package before publish
+      run: |
+        echo "Package contents:"
+        npm pack --dry-run
+        echo "Package info:"
+        npm view icona || echo "Package not yet published"
+
     - name: Create Git Tag
       run: |
         if [ "${{ steps.version-check.outputs.should_bump }}" == "true" ]; then
@@ -125,9 +150,10 @@ jobs:
         git push origin "v$VERSION"
 
     - name: Publish to NPM
-      run: npm publish
+      run: npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: Create GitHub Release
       uses: actions/create-release@v1
