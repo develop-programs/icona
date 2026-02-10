@@ -17,6 +17,9 @@ build/
 .env.test.local
 .env.production.local
 
+# npm
+.npmrc
+
 # Logs
 logs
 *.log
