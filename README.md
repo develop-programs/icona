@@ -135,6 +135,30 @@ import FeatherHeart from './dist/vue/feather/heart.vue';
 | `npm run dev` | Watch mode for development |
 | `npm run generate` | Process SVG files and generate components |
 | `npm run clean` | Remove dist directory |
+| `npm run release:patch` | Local release with patch version bump |
+| `npm run release:minor` | Local release with minor version bump |
+| `npm run release:major` | Local release with major version bump |
+
+## 🚀 Automated Publishing
+
+This project is configured for automatic npm publishing via GitHub Actions:
+
+- **Auto-publish**: Every push to `main` branch automatically publishes to npm
+- **Auto-versioning**: If the current version already exists on npm, it auto-bumps to the next patch version
+- **GitHub Releases**: Automatically creates GitHub releases with generated components
+- **Component Generation**: All React, Vue, and React Native components are generated before publishing
+
+### Manual Release (Local)
+
+```bash
+# Set your NPM token in .env file
+echo "NPM_TOKEN=your_npm_token_here" > .env
+
+# Release with version bump
+npm run release:patch  # 1.0.0 → 1.0.1
+npm run release:minor  # 1.0.0 → 1.1.0
+npm run release:major  # 1.0.0 → 2.0.0
+```
 
 ## 🎨 Component Props
 

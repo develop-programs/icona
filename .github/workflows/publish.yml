@@ -32,43 +32,48 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
 
     - name: Install dependencies
-      run: npm ci
+      run: |
+        if [ -f package-lock.json ]; then
+          npm ci
+        else
+          npm install
+        fi
 
     - name: Setup Git
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Check for version changes
-      id: version-check
+    - name: Get current version
+      id: get-version
       run: |
         CURRENT_VERSION=$(node -p "require('./package.json').version")
         echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+        echo "Current version: $CURRENT_VERSION"
+
+    - name: Check if version exists on NPM
+      id: version-check
+      run: |
+        CURRENT_VERSION=$(node -p "require('./package.json').version")
         
-        # Try to get the version from the latest npm release
-        NPM_VERSION=$(npm view icona version 2>/dev/null || echo "0.0.0")
-        echo "npm_version=$NPM_VERSION" >> $GITHUB_OUTPUT
-        
-        if [ "$CURRENT_VERSION" != "$NPM_VERSION" ]; then
-          echo "needs_publish=true" >> $GITHUB_OUTPUT
-        else
+        # Check if this version exists on NPM
+        if npm view icona@$CURRENT_VERSION version 2>/dev/null; then
+          echo "Version $CURRENT_VERSION already exists on NPM"
           echo "needs_publish=false" >> $GITHUB_OUTPUT
+          echo "should_bump=true" >> $GITHUB_OUTPUT
+        else
+          echo "Version $CURRENT_VERSION does not exist on NPM"
+          echo "needs_publish=true" >> $GITHUB_OUTPUT
+          echo "should_bump=false" >> $GITHUB_OUTPUT
         fi
 
-    - name: Build and generate components
-      if: steps.version-check.outputs.needs_publish == 'true'
-      run: |
-        npm run clean
-        npm run build
-        npm run generate
-
-    - name: Auto bump version
-      if: steps.version-check.outputs.needs_publish == 'false'
+    - name: Auto bump version if needed
+      if: steps.version-check.outputs.should_bump == 'true'
       run: |
         npm version patch --no-git-tag-version
         NEW_VERSION=$(node -p "require('./package.json').version")
@@ -78,8 +83,14 @@ jobs:
         git commit -m "chore: auto bump version to $NEW_VERSION [skip ci]"
         git push origin main
 
-    - name: Build after version bump
-      if: steps.version-check.outputs.needs_publish == 'false'
+    - name: Update version output after bump
+      if: steps.version-check.outputs.should_bump == 'true'
+      id: updated-version
+      run: |
+        NEW_VERSION=$(node -p "require('./package.json').version")
+        echo "final_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+    - name: Build and generate components
       run: |
         npm run clean
         npm run build
@@ -87,9 +98,15 @@ jobs:
 
     - name: Create Git Tag
       run: |
-        VERSION=$(node -p "require('./package.json').version")
+        if [ "${{ steps.version-check.outputs.should_bump }}" == "true" ]; then
+          VERSION=${{ steps.updated-version.outputs.final_version }}
+        else
+          VERSION=${{ steps.get-version.outputs.current_version }}
+        fi
+        
+        echo "Creating tag for version: v$VERSION"
         git tag -a "v$VERSION" -m "Release v$VERSION"
-        git push origin --tags
+        git push origin "v$VERSION"
 
     - name: Publish to NPM
       run: npm publish
@@ -101,12 +118,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${{ steps.version-check.outputs.current_version }}
-        release_name: Release v${{ steps.version-check.outputs.current_version }}
+        tag_name: v${{ steps.version-check.outputs.should_bump == 'true' && steps.updated-version.outputs.final_version || steps.get-version.outputs.current_version }}
+        release_name: Release v${{ steps.version-check.outputs.should_bump == 'true' && steps.updated-version.outputs.final_version || steps.get-version.outputs.current_version }}
         body: |
           ## What's Changed
           
-          Auto-generated release for version ${{ steps.version-check.outputs.current_version }}
+          Auto-generated release for version ${{ steps.version-check.outputs.should_bump == 'true' && steps.updated-version.outputs.final_version || steps.get-version.outputs.current_version }}
           
           ### Components Generated
           - React components in `dist/react/`
@@ -115,7 +132,7 @@ jobs:
           
           ### Installation
           ```bash
-          npm install icona@${{ steps.version-check.outputs.current_version }}
+          npm install icona@${{ steps.version-check.outputs.should_bump == 'true' && steps.updated-version.outputs.final_version || steps.get-version.outputs.current_version }}
           ```
           
         draft: false
