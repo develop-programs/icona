@@ -2,8 +2,8 @@
   "name": "@developershre/icona",
   "version": "2.0.0",
   "description": "A TypeScript icon library generator for React, React Native, and Vue with nested folder support",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/exports.js",
+  "types": "dist/exports.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/develop-programs/icona.git"
@@ -55,9 +55,15 @@
   "engines": {
     "node": ">=16.0.0"
   },
+  "dependencies": {
+    "svgo": "^3.2.0",
+    "node-fetch": "^3.3.2",
+    "dotenv": "^16.4.7"
+  },
   "devDependencies": {
     "@types/node": "^25.2.2",
     "@types/react": "^19.2.13",
+    "@types/node-fetch": "^2.6.11",
     "typescript": "^5.9.3"
   }
 }

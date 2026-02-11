@@ -1,114 +1,59 @@
-# Icona - Modern Icon Library
+# Icona
 
-Beautiful, customizable icon components for React, React Native, and Vue. Pre-optimized SVG icons with intelligent naming and zero configuration needed.
+A lightweight, modern SVG icon library designed for web applications. Built with TypeScript support and framework-agnostic architecture for seamless integration across your projects.
 
-## ✨ Features
-
-- 🎨 **Multi-Framework Support**: Use the same icons across React, React Native, and Vue
-- ⚛️ **Framework Components**: Pre-built TypeScript components ready to drop into your project
-- 📦 **Fully Typed**: Complete TypeScript support with strict type checking
-- 🎭 **Customizable**: Control size, color, and styling on every icon
-- ⚡ **Optimized**: Pre-optimized SVGs for best performance
-- 🔧 **Zero Config**: Install and use immediately
-
-## 🚀 Quick Start
-
-### Installation
+## Installation
 
 ```bash
-npm install icona
+npm install @developershre/icona
 ```
 
-### Usage - React
+## Quick Start
 
-```tsx
-import { TablerOutlineHome, FeatherHeart } from "icona/react";
+```typescript
+import { Icon } from 'icona';
 
 export default function App() {
-  return (
-    <div>
-      <TablerOutlineHome size={32} color="blue" />
-      <FeatherHeart size={24} className="text-red-500" />
-    </div>
-  );
+  return <Icon name="arrow-right" size={24} />;
 }
 ```
 
-### Usage - React Native
+## Features
 
-```tsx
-import { TablerOutlineHome, FeatherHeart } from "icona/react-native";
+- **Lightweight SVG Icons** - Minimal file sizes with optimized SVG format
+- **TypeScript Support** - Full type definitions for better development experience
+- **Framework Agnostic** - Works with React, Vue, Angular, or vanilla JavaScript
+- **Customizable** - Control colors, sizes, and stroke widths on the fly
+- **Tree-Shakeable** - Import only the icons you need for smaller bundle sizes
 
-export default function App() {
-  return (
-    <View>
-      <TablerOutlineHome size={32} color="blue" />
-      <FeatherHeart size={24} color="red" />
-    </View>
-  );
-}
-```
+## Available Icons
 
-### Usage - Vue 3
+Browse the complete icon collection at the [icon showcase](https://icona.dev/icons).
 
-```vue
-<template>
-  <div>
-    <TablerOutlineHome :size="32" />
-    <FeatherHeart :size="24" class="text-red-500" />
-  </div>
-</template>
+## Props
 
-<script setup>
-import { TablerOutlineHome, FeatherHeart } from "icona/vue";
-</script>
-```
+| Prop          | Type   | Default      | Description                      |
+| ------------- | ------ | ------------ | -------------------------------- |
+| `name`        | string | required     | Icon name identifier             |
+| `size`        | number | 24           | Icon size in pixels              |
+| `color`       | string | currentColor | Icon color (any CSS color value) |
+| `strokeWidth` | number | 2            | Stroke width for outlined icons  |
 
-## 🎨 Customize Icons
+## Browser Support
 
-All icons support these customization options:
+Compatible with all modern browsers supporting SVG and ES6+.
 
-### React & Vue
+## Credits
 
-```tsx
-<TablerOutlineHome
-  size={32} // width and height
-  color="blue" // icon color
-  className="my-class" // CSS classes
-  style={{ opacity: 0.8 }} // inline styles
-  title="Home" // accessibility
-/>
-```
+Icon designs created and curated by our Figma design team. We extend our gratitude to the Figma community for their contributions to icon design and refinement.
+## Inspiration
 
-### React Native
+The following resources inspired our icon design:
 
-```tsx
-<TablerOutlineHome
-  size={32} // width and height
-  color="blue" // icon color
-  style={{ opacity: 0.8 }} // React Native styles
-/>
-```
+- [Hicon](https://www.figma.com/community/file/1023171235158207826/hicon-free-icon-pack-2700-editable-icons) - Free icon pack with 2700 editable icons
+- [Wave Icons](https://www.figma.com/community/file/1200076315140068212/wave-icons-essential-icons-community) - Essential icons community collection
 
-## 📦 Available Icon Collections
 
-- **Tabler Icons** - Minimal outline and solid design system
-- **Feather Icons** - Simple, elegant line icons
-- Additional modern icon sets included
+## License
 
-Browse all available icons in our [collection explorer](#).
-
-## 🙏 Attribution
-
-Icons sourced from:
-
-- **Hicons** - https://www.figma.com/community/file/1023171235158207826/hicon-free-icon-pack-2700-editable-icons
-- **Wave-icons** - https://www.figma.com/community/file/1200076315140068212/wave-icons-essential-icons-community
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
----
-
-Built with ❤️ for modern web development.
+MIT
